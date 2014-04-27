@@ -1,0 +1,49 @@
+html, body{
+    height: 100%;
+}
+
+.artworksRadar {
+	border: 1px solid rgb(30, 151, 255);
+    height: 96%;
+	margin-right: 40px;
+	margin-left: 20px;
+	padding: 5px 5px 5px 5px;
+	width: 96%;
+}
+
+.artworksRadarForm {
+	border: 1px solid rgb(30, 151, 255);	
+	float: left;
+	font-family: "Source Sans Pro", sans-serif;
+	font-weight: 300;
+    height: 175px;
+	margin-left: 5px;
+	margin-right: 5px;
+	margin-bottom: 5px;
+	overflow: auto;
+	padding: 5px 5px 5px 5px;
+	width: 97.8%;
+}
+
+.artworksRadarMap {
+	border: 1px solid rgb(30, 151, 255);	
+	float: left;
+    height: 65%;
+	margin-left: 5px;
+	width: 63%;
+}
+
+.artworksRadarList {
+	border: 1px solid rgb(30, 151, 255);	
+	float: left;
+    height: 65%;
+	margin-left:5px;
+	margin-right:5px;
+	overflow: auto;
+	width: 35%;
+}
+
+.artworkRadarListContent {
+	font-family: "Source Sans Pro", sans-serif;
+	padding: 5px;
+}
