@@ -51,8 +51,8 @@ public class ArtworkRestClientService implements ArtworkService
     
     String url = String.format(this.databaseURL + "/" + this.neo4artExtension + "/artworks/museum/%s", museumId);
     
-    java.util.Map<String, List<Artwork>> response = restTemplate.getForObject(url, java.util.Map.class);
+    java.util.List<Artwork> response = restTemplate.getForObject(url, java.util.List.class);
     
-    return response.get("artwork");
+    return response;
   }
 }

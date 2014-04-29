@@ -51,8 +51,8 @@ public class MuseumRestClientService implements MuseumService
     
     String url = String.format(this.databaseURL + "/" + this.neo4artExtension + "/museums/lon/%s/lat/%s/distanceInKm/%s", longitude, latitude, distanceInKm);
     
-    java.util.Map<String, List<Museum>> response = restTemplate.getForObject(url, java.util.Map.class);
+    java.util.List<Museum> response = restTemplate.getForObject(url, java.util.List.class);
     
-    return response.get("museum");
+    return response;
   }
 }

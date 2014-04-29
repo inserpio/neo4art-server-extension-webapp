@@ -41,7 +41,7 @@ public class MuseumServiceTest
   private MuseumService museumService;
   
   @Test
-  public void shouldGetMuseumsWithinDistance()
+  public void shouldGetMuseumsWithinDistanceLondon()
   {
     double longitude    = -0.1283d;
     double latitude     = 51.5086d;
@@ -51,6 +51,21 @@ public class MuseumServiceTest
     
     Assert.assertNotNull(museumList);
     Assert.assertEquals(3, museumList.size());
+    
+    System.out.println(museumList);
+  }
+  
+  @Test
+  public void shouldGetMuseumsWithinDistanceSanMateo()
+  {
+    double longitude    = -122.313056d;
+    double latitude     = 37.554167d;
+    double distanceInKm = 40.0d;
+    
+    List<Museum> museumList = this.museumService.getMuseumsWithinDistance(longitude, latitude, distanceInKm);
+    
+    Assert.assertNotNull(museumList);
+    Assert.assertEquals(1, museumList.size());
     
     System.out.println(museumList);
   }
