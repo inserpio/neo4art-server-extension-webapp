@@ -14,18 +14,18 @@
                            http://www.springframework.org/schema/data/neo4j/spring-neo4j.xsd">
 
 	<!-- SERVER VERSION (localhost)-->
+	<!--
 	<bean id="graphDatabaseService" class ="org.springframework.data.neo4j.rest.SpringRestGraphDatabase" scope="singleton">
   		<constructor-arg index="0" value="${database_url}/db/data/" />
 	</bean>
+	-->	
 	
 	<!-- SERVER VERSION (graphenedb)-->
-	<!--
 	<bean id="graphDatabaseService" class ="org.springframework.data.neo4j.rest.SpringRestGraphDatabase" scope="singleton">
   		<constructor-arg index="0" value="http://neo4artsdn301.sb01.stations.graphenedb.com:24789/db/data/" />
   		<constructor-arg index="1" value="neo4art-sdn301" />
   		<constructor-arg index="2" value="n34tQSjW9ZfZFzeEcABw" />
 	</bean>
-	-->	
 
     <neo4j:config base-package="it.inserpio.neo4art.domain" graphDatabaseService="graphDatabaseService"/>
     
