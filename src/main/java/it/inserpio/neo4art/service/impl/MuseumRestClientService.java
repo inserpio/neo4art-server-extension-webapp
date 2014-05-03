@@ -18,6 +18,7 @@ package it.inserpio.neo4art.service.impl;
 
 import it.inserpio.neo4art.domain.Museum;
 import it.inserpio.neo4art.service.MuseumService;
+import it.inserpio.neo4art.util.Neo4jRestClientFactory;
 
 import java.util.List;
 
@@ -47,7 +48,7 @@ public class MuseumRestClientService implements MuseumService
   @SuppressWarnings("unchecked")
   public List<Museum> getMuseumsWithinDistance(double longitude, double latitude, double distanceInKm)
   {
-    RestTemplate restTemplate = new RestTemplate();
+    RestTemplate restTemplate = Neo4jRestClientFactory.getInstance();
     
     String url = String.format(this.databaseURL + "/" + this.neo4artExtension + "/museums/lon/%s/lat/%s/distanceInKm/%s", longitude, latitude, distanceInKm);
     

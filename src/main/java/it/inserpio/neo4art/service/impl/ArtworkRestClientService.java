@@ -18,6 +18,7 @@ package it.inserpio.neo4art.service.impl;
 
 import it.inserpio.neo4art.domain.Artwork;
 import it.inserpio.neo4art.service.ArtworkService;
+import it.inserpio.neo4art.util.Neo4jRestClientFactory;
 
 import java.util.List;
 
@@ -47,7 +48,7 @@ public class ArtworkRestClientService implements ArtworkService
   @SuppressWarnings("unchecked")
   public List<Artwork> findArtworkByMuseum(long museumId)
   {
-    RestTemplate restTemplate = new RestTemplate();
+    RestTemplate restTemplate = Neo4jRestClientFactory.getInstance();
     
     String url = String.format(this.databaseURL + "/" + this.neo4artExtension + "/artworks/museum/%s", museumId);
     
