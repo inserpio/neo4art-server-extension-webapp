@@ -95,11 +95,10 @@ Using the service:
 
 Once you have a service instance created and bound to your application, you will need to configure the application to dynamically fetch the credentials for your service. These credentials are stored in the VCAP_SERVICES environment variable.
 
-`cf env neo4art`
+	cf env neo4art
 
 	Getting env variables for app neo4art in org LARUS / space development as lorenzo.speranzoni@larus-ba.it...
 	OK
-
 	System-Provided:
 	{
 	  "VCAP_SERVICES": {
@@ -119,7 +118,7 @@ Once you have a service instance created and bound to your application, you will
 	  }
 	}
 
-There are generally two methods for these consuming credentials.
+There are generally two methods for these consuming credentials:
 
 * Auto-configuration: Some buildpacks create a service connection for you by creating additional environment variables, updating config files, or passing system parameters to the JVM.
 * Manual: Parse the JSON yourself. Helper libraries are available for some frameworks.
