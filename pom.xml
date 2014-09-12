@@ -300,7 +300,20 @@
 			<version>${spring.version}</version>
 			<scope>test</scope>
 		</dependency>
-
+		
+		<!-- Cloud Foundry -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>cloudfoundry-connector</artifactId>
+			<version>0.9.5</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-service-connector</artifactId>
+			<version>0.9.5</version>
+		</dependency>
+     
 	</dependencies>
 
 	<build>
@@ -355,6 +368,12 @@
 	        <url>http://maven.springframework.org/milestone</url>
 	    </repository>
 
+		<repository>
+	        <id>spring-milestones</id>
+	        <name>Spring Maven Milestone Repository</name>
+	        <url>http://repo.spring.io/milestone</url>
+	    </repository>	    
+	    
 		<repository>
 	        <id>spring-snapshots</id>
 	        <name>Spring Snapshots</name>

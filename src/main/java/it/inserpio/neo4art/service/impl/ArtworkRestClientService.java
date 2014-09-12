@@ -16,12 +16,14 @@
 
 package it.inserpio.neo4art.service.impl;
 
+import it.inserpio.neo4art.cloudfoundry.Neo4jServiceInfo;
 import it.inserpio.neo4art.domain.Artwork;
 import it.inserpio.neo4art.service.ArtworkService;
 import it.inserpio.neo4art.util.Neo4jRestClientFactory;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,8 +36,8 @@ import org.springframework.web.client.RestTemplate;
 @Service
 public class ArtworkRestClientService implements ArtworkService
 {
-  @Value("${database_url}")
-  private String databaseURL;
+  @Autowired
+  private Neo4jServiceInfo neo4jServiceInfo;
   
   @Value("${neo4art_extension}")
   private String neo4artExtension;
@@ -50,7 +52,7 @@ public class ArtworkRestClientService implements ArtworkService
   {
     RestTemplate restTemplate = Neo4jRestClientFactory.getInstance();
     
-    String url = String.format(this.databaseURL + "/" + this.neo4artExtension + "/artworks/museum/%s", museumId);
+    String url = String.format(neo4jServiceInfo.getUrl() + "/" + this.neo4artExtension + "/artworks/museum/%s", museumId);
     
     java.util.List<Artwork> response = restTemplate.getForObject(url, java.util.List.class);
     

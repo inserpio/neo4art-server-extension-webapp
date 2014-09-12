@@ -16,12 +16,14 @@
 
 package it.inserpio.neo4art.service.impl;
 
+import it.inserpio.neo4art.cloudfoundry.Neo4jServiceInfo;
 import it.inserpio.neo4art.domain.Museum;
 import it.inserpio.neo4art.service.MuseumService;
 import it.inserpio.neo4art.util.Neo4jRestClientFactory;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,8 +36,8 @@ import org.springframework.web.client.RestTemplate;
 @Service
 public class MuseumRestClientService implements MuseumService
 {
-  @Value("${database_url}")
-  private String databaseURL;
+  @Autowired
+  private Neo4jServiceInfo neo4jServiceInfo;
   
   @Value("${neo4art_extension}")
   private String neo4artExtension;
@@ -50,7 +52,7 @@ public class MuseumRestClientService implements MuseumService
   {
     RestTemplate restTemplate = Neo4jRestClientFactory.getInstance();
     
-    String url = String.format(this.databaseURL + "/" + this.neo4artExtension + "/museums/lon/%s/lat/%s/distanceInKm/%s", longitude, latitude, distanceInKm);
+    String url = String.format(neo4jServiceInfo.getUrl() + "/" + this.neo4artExtension + "/museums/lon/%s/lat/%s/distanceInKm/%s", longitude, latitude, distanceInKm);
     
     java.util.List<Museum> response = restTemplate.getForObject(url, java.util.List.class);
     

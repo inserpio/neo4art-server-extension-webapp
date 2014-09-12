@@ -15,11 +15,14 @@
 
 
 	<!-- SERVER VERSION (localhost)-->
-
+    <!--
 	<bean id="graphDatabaseService" class ="org.springframework.data.neo4j.rest.SpringRestGraphDatabase" scope="singleton">
   		<constructor-arg index="0" value="${database_url}/db/data/" />
+  		<constructor-arg index="1" value="${database_usr}" />
+  		<constructor-arg index="2" value="${database_pwd}" />
 	</bean>
 
     <neo4j:config base-package="it.inserpio.neo4art.domain" graphDatabaseService="graphDatabaseService"/>
+    -->
     
 </beans>

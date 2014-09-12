@@ -16,13 +16,15 @@
 
 package it.inserpio.neo4art.util;
 
+import it.inserpio.neo4art.cloudfoundry.Neo4jServiceInfo;
+
 import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.client.CredentialsProvider;
 import org.apache.http.client.HttpClient;
 import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.apache.http.impl.client.HttpClients;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
@@ -34,29 +36,21 @@ import org.springframework.web.client.RestTemplate;
 @Component
 public class Neo4jRestClientFactory
 {
-  private static String databaseUser;
+  private static Neo4jServiceInfo neo4jServiceInfo;
 
-  private static String databasePassword;
-
-  @Value("${database_usr}")
-  public void setDatabaseUser(String databaseUser)
+  @Autowired
+  public void setNeo4jServiceInfo(Neo4jServiceInfo neo4jServiceInfo)
   {
-    Neo4jRestClientFactory.databaseUser = databaseUser;
+	Neo4jRestClientFactory.neo4jServiceInfo = neo4jServiceInfo;
   }
-
-  @Value("${database_pwd}")
-  public void setDatabasePassword(String databasePassword)
-  {
-    Neo4jRestClientFactory.databasePassword = databasePassword;
-  }
-
+  
   public static RestTemplate getInstance()
   {
     CredentialsProvider credsProvider = new BasicCredentialsProvider();
 
     credsProvider.setCredentials(
             new AuthScope(null, -1),
-            new UsernamePasswordCredentials(databaseUser, databasePassword));
+            new UsernamePasswordCredentials(neo4jServiceInfo.getUsr(), neo4jServiceInfo.getPwd()));
 
     HttpClient httpClient = HttpClients.custom().setDefaultCredentialsProvider(credsProvider).build();
 
