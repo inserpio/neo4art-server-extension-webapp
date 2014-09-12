@@ -1,0 +1,124 @@
+
+= NEO4ART WENT TO DALLAS AND MOVED TO THE CLOUD
+
+== Intro
+
+This week Neo4Art travelled to Dallas to be presented at the SpringOne 2GX 2014... etc etc etc
+ 
+
+== Deploying Neo4art on Cloud Foundry
+
+It was actually really easy! Strange to say but the hardest part was to find the link to sign up and installing the command line.
+
+
+=== Signing Up
+
+cloudfoundry.com
+	Pivotal Web Services
+		Sign Up for Free
+
+
+=== Getting Started
+
+*HOME*: http://docs.run.pivotal.io/starting/index.html
+
+
+=== Installing the command line interface
+
+The `cf` CLI is your primary tool for deploying and managing your applications.
+
+*DOCS*: http://docs.run.pivotal.io/devguide/installcf/install-go-cli.html
+
+*DOWNLOAD*: https://github.com/cloudfoundry/cli/releases
+
+_dmg_    : https://cli.run.pivotal.io/stable?release=macosx64&version=6.6.0&source=github-rel
+_binary_ : https://cli.run.pivotal.io/stable?release=macosx64-binary&version=6.6.0&source=github-rel
+
+image::cli-not-working.png
+
+
+=== Deploying Neo4art on Cloud Foundry
+
+*DOCS*: http://docs.run.pivotal.io/devguide/deploy-apps/deploy-app.html
+
+This step targets the Cloud Foundry public API endpoint `api.run.pivotal.io` and establishes your connection to Pivotal Web Services.
+
+`cf login [-a API_URL] [-u USERNAME] [-p PASSWORD] [-o ORG] [-s SPACE]`
+
+In our case:
+
+`cf login -a neo4art`
+
+After running `mvn clean package` to build your war file, all you have to do is running the command `cf push` providing two parameters. The first one is the application name and the second one is the war file:
+
+`cf push neo4art -p target/neo4art.war`
+
+On the Pivotal Web Services Console, you should see something similar to that, once the deployment phase is completed:
+
+image:pws-console-01.png
+
+image:pws-console-02.png
+
+
+=== Deploying with CLOUD FOUNDRY MAVEN PLUG-IN:
+
+We have many options to deploy our application. For example we could use the Cloud Foundry Maven Plugin.
+
+*HOME*: https://spring.io/blog/2011/09/22/rapid-cloud-foundry-deployments-with-maven
+
+TODO
+
+
+=== Cloud Foundry User-provided Services
+
+User-provided service instances allow you to represent external assets like databases, messaging services, and key-value stores in Cloud Foundry.
+
+To create a services we have to use the command `cf cups SERVICE_INSTANCE -p '{"username":"my_username","password":"my_password"}'`
+
+In our example we want to bind our neo4j graph database instance hosted on http://www.graphenedb.com[GrapheneDB]. GrapheneDB offers hosted, reliable and optimized graph databases instances:
+
+`cf cups graphenedb-neo4art-sdn301 -p '{"url":"http://neo4artsdn301.sb02.stations.graphenedb.com:24789/db/data/","usr":"neo4art-sdn301","pwd":"***********"}'`
+
+We can check that our service is not defined and configured on PWS by running the command `cf services`, which produces something like that:
+
+	Creating user provided service *`graphenedb-neo4art-sdn301`* in org *`LARUS\* / space \*development*` as \*lorenzo.speranzoni@larus-ba.it*`...
+	*OK*
+
+Now we have to binding the service we have just created to our app. 
+
+`cf bind-service neo4art graphenedb-neo4art-sdn301`
+
+	Binding service *`graphenedb-neo4art-sdn301`* to app *`neo4art`* in org *`LARUS\* / space \*development*` as *`lorenzo.speranzoni@larus-ba.it`*…
+	OK
+
+Using the service:
+
+Once you have a service instance created and bound to your application, you will need to configure the application to dynamically fetch the credentials for your service. These credentials are stored in the VCAP_SERVICES environment variable.
+
+	cf env neo4art
+
+	Getting env variables for app neo4art in org LARUS / space development as lorenzo.speranzoni@larus-ba.it...
+	OK
+	System-Provided:
+	{
+	  "VCAP_SERVICES": {
+	    "user-provided": [
+	      {
+	        "credentials": {
+	          "pwd": "***********",
+	          "url": "http://neo4artsdn301.sb02.stations.graphenedb.com:24789/db/data/",
+	          "usr": "neo4art-sdn301"
+	        },
+	        "label": "user-provided",
+	        "name": "graphenedb-neo4art-sdn301",
+	        "syslog_drain_url": "",
+	        "tags": []
+	      }
+	    ]
+	  }
+	}
+
+There are generally two methods for these consuming credentials:
+
+* Auto-configuration: Some buildpacks create a service connection for you by creating additional environment variables, updating config files, or passing system parameters to the JVM.
+* Manual: Parse the JSON yourself. Helper libraries are available for some frameworks.
