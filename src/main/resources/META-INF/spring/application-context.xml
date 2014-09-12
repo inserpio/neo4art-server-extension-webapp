@@ -17,7 +17,5 @@
 	<context:component-scan base-package="it.inserpio.neo4art">
 		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
 	</context:component-scan>
-
-    <import resource="classpath:META-INF/spring/neo4j-database-context.xml"/>
 	
 </beans>

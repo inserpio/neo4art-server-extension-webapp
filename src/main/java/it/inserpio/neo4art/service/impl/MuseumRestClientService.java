@@ -52,7 +52,7 @@ public class MuseumRestClientService implements MuseumService
   {
     RestTemplate restTemplate = Neo4jRestClientFactory.getInstance();
     
-    String url = String.format(neo4jServiceInfo.getUrl() + "/" + this.neo4artExtension + "/museums/lon/%s/lat/%s/distanceInKm/%s", longitude, latitude, distanceInKm);
+    String url = String.format(this.neo4jServiceInfo.getUrl() + "/" + this.neo4artExtension + "/museums/lon/%s/lat/%s/distanceInKm/%s", longitude, latitude, distanceInKm);
     
     java.util.List<Museum> response = restTemplate.getForObject(url, java.util.List.class);
     

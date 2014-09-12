@@ -52,7 +52,7 @@ public class ArtworkRestClientService implements ArtworkService
   {
     RestTemplate restTemplate = Neo4jRestClientFactory.getInstance();
     
-    String url = String.format(neo4jServiceInfo.getUrl() + "/" + this.neo4artExtension + "/artworks/museum/%s", museumId);
+    String url = String.format(this.neo4jServiceInfo.getUrl() + "/" + this.neo4artExtension + "/artworks/museum/%s", museumId);
     
     java.util.List<Artwork> response = restTemplate.getForObject(url, java.util.List.class);
     
