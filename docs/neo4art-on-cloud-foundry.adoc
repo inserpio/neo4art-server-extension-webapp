@@ -88,7 +88,7 @@ Now we have to binding the service we have just created to our app.
 
 `cf bind-service neo4art graphenedb-neo4art-sdn301`
 
-	Binding service *`graphenedb-neo4art-sdn301`* to app *`neo4art`* in org *`LARUS\* / space \*development*` as *`lorenzo.speranzoni@larus-ba.it`*â€¦
+	Binding service *`graphenedb-neo4art-sdn301`* to app *`neo4art`* in org *`LARUS\* / space \*development*` as *`lorenzo.speranzoni@larus-ba.it`*É
 	OK
 
 Using the service:
@@ -122,3 +122,9 @@ There are generally two methods for these consuming credentials:
 
 * Auto-configuration: Some buildpacks create a service connection for you by creating additional environment variables, updating config files, or passing system parameters to the JVM.
 * Manual: Parse the JSON yourself. Helper libraries are available for some frameworks.
+
+
+
+== Notes
+
+* Neo4j should also provide service connection: http://docs.run.pivotal.io/buildpacks/java/spring-service-bindings.html*
